@@ -21,8 +21,23 @@ Port: http://localhost:5000/
 
 - Home(Index): Form
   - Select country -> retrieve address format
-  - View format information: address format and url
+  - View format information: address formats
   - Add fields to enter destination address -> format an address
+
+Appearance:
+Select a Country: ______________________________ > API request
+
+* Once api call returns list
+| FormatName        | Format (Pattern)          | Description               |
+| ----------------- | ------------------------- | ------------------------- |
+| {format_name}     | {format_pattern}          | What distinguishes format |
+
+* Once list of formats renders
+Select a Format: ________________________________ >
+
+* Once a format is selected => render input fields
+FieldName: __________
+FieldName: __________
 
 **Sample Request**
 Method: GET
@@ -32,14 +47,14 @@ Action: Returns list of formats.
 ### Web Api
 - ApiController: Formats ```.../formats```
 
-| Method    | URL format        | Action                |
-| --------- | ----------------- | --------------------- |
-| GET       | .../formats       | Returns list of formats
-- GET: Get address format (and url)
-  ?country={country} => return address information of country
+| Method    | URL format        | Action                    |
+| --------- | ----------------- | ------------------------- |
+| GET       | .../formats       | Returns list of formats   |
 
-Database: 
-- Countries > Formats <> FormatFields <> FieldNames
+**Queries for: .../formats?**
+
+Parameter: country
+Required - Returns list of address formats by country
 
 **Sample Response**
 {
@@ -53,9 +68,18 @@ Database:
     }
 }
 
-**In Consideration**
+### Database
+Database: Countries > Formats <> FormatFields <> Fields
+
+Tables:
+- Countries: Id, FullName, CountryCode
+- Formats: Id, CountryId, Name
+- FormatFields: Id, FormatId, FieldId
+- Fields: Id, Name
+
+### Yellow Features / Could Have (if there's time)
 - Deploy on Azure
 - Add field types
 - Add valid inputs for each field
 
-##
+## Complete Setup
