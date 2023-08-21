@@ -17,19 +17,108 @@ GlobalAddressFormatter is a web app and api for formatting postal addresses for 
 ### Samples
 
 Format Link: https://en.wikipedia.org/wiki/Address
+Format Link: http://www.columbia.edu/~fdc/postal/
 
 Australia
--
+- General format:
+    - LINE 1: `{recipient name} OR {business name}`
+    - LINE 1.5: `{recipient name IF applicable and business name on line 1}`
+    - LINE 2: `{street number} {street name} OR {PO Box} OR {Locked Bag number}`
+    - LINE 3: `{locality or suburb}, {state}, {post code} (all in capitals)`
+
+[Source](https://auspost.com.au/sending/check-sending-guidelines/addressing-guidelines)
+
 Bangladesh
--
+- Urban format:
+    - LINE 1: `{Addressee (person or organization)}`
+    - LINE 1.5: `{Addressee details (optional)}`
+    - LINE 2: `{flat number}, {building name} (if applicable)`
+    - LINE 3: `{street name and number}`
+    - LINE 4: `{town}+{4-digit postal code}`
+    - LINE 5: `{country (for international mail)}`
+- Rural format:
+    - LINE 1: `{Addressee name}`
+    - LINE 1.5: `{Addressee details (optional)}`
+    - LINE 2: `Village: {village name}`
+    - LINE 3: `P.O.: {post office}`
+    - LINE 4: `Thana: {thana name}`
+    - LINE 5: `District: {district name}`
+    - LINE 6: `{country (international mail only)}`
+
+[Source](https://en.wikipedia.org/wiki/Address#Bangladesh)
+
 Chile
--
+- Larger city format (for cities that extend through multiple municipalities):
+    - LINE 1: `{Addressee (person or organization)}`
+    - LINE 2: `{street name} {number}, {apt. number (if applicable)}`
+    - LINE 3: `{postal code (optional)} {municipality}`
+    - LINE 4: `{region}`
+- Smaller city format (for cities only in one municipality):
+    - LINE 1: `{Addressee (person or organization)}`
+    - LINE 2: `{street name} {number}, {apt. number (if applicable)}`
+    - LINE 3: `{neighborhood}`
+    - LINE 4: `{region}`
+- Rural format (for rural municipalities):
+    - LINE 1: `{Addressee (person or organization)}`
+    - LINE 2: `{street name} {number}, {apt. number (if applicable)}`
+    - LINE 3: `{postal code} {town or village}`
+    - LINE 4: `{region}`
+- House number-less format (for primarily rural communities that don't use individual building/house numbers):
+    - LINE 1: `{Addressee (person or organization)}`
+    - LINE 2: `{street name}, {additional address information}`
+    - LINE 3: `{postal code} {town or village}`
+    - LINE 4: `{region}`
+
+[Source](https://en.wikipedia.org/wiki/Address#Chile)
+
 Greece
--
+- National format (for mail within Greece):
+    - LINE 1: `{Recipient}`
+    - LINE 2: `{Street address}`
+    - LINE 3: `{post code}, {town}`
+- International format (for mail to/from abroad)
+    - LINE 1: `{Recipient}`
+    - LINE 2: `{Street address}`
+    - LINE 3: `{destination country code} {post code}, {town}`
+
+[Source](https://en.wikipedia.org/wiki/Address#Greece)
+
 India
--
+- General address format (for international deliveries)
+    - LINE 1: `{Name} {Son/Daughter Of (DO/SO)} OR {Husband/Wife Of (H/O or W/O)} {parent/spouse's name}`
+    - LINE 2: `{Door number}`
+    - LINE 3: `{Street Number}, {Street Name}`
+    - LINE 4: `{VIA NAME (VIA)}`
+    - LINE 5: `{Post Name (PO)}`
+    - LINE 6: `{Taluk Name (TK)}`
+    - LINE 7: `{Locality or Neighbourhood}`
+    - LINE 8: `{City} - {Postal Code}`
+    - LINE 9: `{District Name}`
+    - LINE 10: `{State}`
+    - LINE 11: `{Country}`
+- Rural address format
+    - LINE 1: `{Name}`
+    - LINE 2: `{Street number}, {street name}`
+    - LINE 3: `{Village name}`
+    - LINE 4: `{District name}`
+    - LINE 5: `{Postal Code}`
+    - LINE 6: `{State}`
+- Urban address format
+    - LINE 1: `{Name}`
+    - LINE 1.5: `{Occupation (optional)}`
+    - LINE 2: `{Flat number}, {building name}`
+    - LINE 3: `{Street number}, {street name}`
+    - LINE 4: `{Locality or neighborhood}`
+    - LINE 5: `{Postal Code}`
+    - LINE 6: `{State}`
+
+[Source](https://en.wikipedia.org/wiki/Address#India)
+
 United States
--
+- General format (appropriate for most addresses)
+    - LINE 1: `{Name of addressee}`
+    - LINE 2: `{House number}, {Street name}, {Apartment/Suite/Room number if applicable}`
+    - LINE 3: `{Name of post office} {State abbreviation} {ZIP or ZIP+4 code}`
 
 ### Web Client
 Port: http://localhost:5000/
