@@ -17,6 +17,7 @@ GlobalAddressFormatter is a web app and api for formatting postal addresses for 
 ### Samples
 
 Format Link: https://en.wikipedia.org/wiki/Address
+Format Link: http://www.columbia.edu/~fdc/postal/
 
 Australia
 -
