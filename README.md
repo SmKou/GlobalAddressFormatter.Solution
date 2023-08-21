@@ -62,10 +62,12 @@ URL: http://localhost:6000/formats?country={country}
 Action: Returns list of formats.
 
 ### Web Api
+- ApiController: Countries ```.../countries```
 - ApiController: Formats ```.../formats```
 
 | Method    | URL format        | Action                    |
 | --------- | ----------------- | ------------------------- |
+| GET       | .../countries     | Returns list of countries |
 | GET       | .../formats       | Returns list of formats   |
 
 **Queries for: .../formats?**
