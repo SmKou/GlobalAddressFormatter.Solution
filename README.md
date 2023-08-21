@@ -74,7 +74,7 @@ Chile
 Greece
 - National format (for mail within Greece):
     - LINE 1: `{Recipient}`
-    - LINE 2: `{Street address}`
+    - LINE 2: `{street} {number}`
     - LINE 3: `{post code}, {town}`
 "{addressee}\n{street}\n{country}"
 - International format (for mail to/from abroad)
