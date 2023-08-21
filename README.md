@@ -75,7 +75,17 @@ Action: Returns list of formats.
 Parameter: country (country name || countrycode)
 Required - Returns list of address formats by country
 
-**Sample Response**
+**Sample Response: /countries**
+```json
+{
+    "countries": [
+        { "country_code" : "country_name" }
+    ]
+}
+```
+
+**Sample Response: .../formats?**
+```json
 {
     "formats": {
         "format_name": {
@@ -86,6 +96,7 @@ Required - Returns list of address formats by country
         }
     }
 }
+```
 
 ### Database
 Database: Countries > Formats <> FormatFields <> Fields
