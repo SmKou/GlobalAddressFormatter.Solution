@@ -102,10 +102,10 @@ Required - Returns list of address formats by country
 Database: Countries > Formats <> FormatFields <> Fields
 
 Tables:
-- Countries: Id, FullName, CountryCode
-- Formats: Id, CountryId, Name
-- FormatFields: Id, FormatId, FieldId
-- Fields: Id, Name
+- Countries: CountryId, CountryName, CountryCode
+- Formats: FormatId, CountryId, FormatName, Description, Pattern
+- FormatFields: FormatFieldId, FormatId, FieldId
+- Fields: FieldId, FieldName
 
 Minimal Viable Product Database:
 ![Enhanced Entity Relationship Diagram](eer_diagram2.png "Green Phase Diagram")
