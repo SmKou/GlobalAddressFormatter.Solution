@@ -76,6 +76,7 @@ Greece
     - LINE 1: `{Recipient}`
     - LINE 2: `{Street address}`
     - LINE 3: `{post code}, {town}`
+"{addressee}\n{street}\n{country}"
 - International format (for mail to/from abroad)
     - LINE 1: `{Recipient}`
     - LINE 2: `{Street address}`
@@ -84,6 +85,7 @@ Greece
 [Source](https://en.wikipedia.org/wiki/Address#Greece)
 
 India
+"{addressee} {relation} of {relation-name}\n{door-number} {street-number}, {street-name}\nvia {via-name}\n{post-name}\n{taluk-name}\n{locality}\n{city} - {postal-code}\n{district}\n{state}\n{country}"
 - General address format (for international deliveries)
     - LINE 1: `{Name} {Son/Daughter Of (DO/SO)} OR {Husband/Wife Of (H/O or W/O)} {parent/spouse's name}`
     - LINE 2: `{Door number}`
@@ -96,6 +98,7 @@ India
     - LINE 9: `{District Name}`
     - LINE 10: `{State}`
     - LINE 11: `{Country}`
+"{addressee}\n{street-number}, {street-name}\n{village}\n{district}\n{postal-code}\n{state}"
 - Rural address format
     - LINE 1: `{Name}`
     - LINE 2: `{Street number}, {street name}`
@@ -103,6 +106,7 @@ India
     - LINE 4: `{District name}`
     - LINE 5: `{Postal Code}`
     - LINE 6: `{State}`
+"{addressee}\n{occupation}\n{unit}, {building}\n{street-number}, {street-name}\n{locality}\n{postal-code}\n{state}"
 - Urban address format
     - LINE 1: `{Name}`
     - LINE 1.5: `{Occupation (optional)}`
@@ -114,7 +118,8 @@ India
 
 [Source](https://en.wikipedia.org/wiki/Address#India)
 
-United States
+United States:
+"{addressee}\n{house-number}, {street-name}, {unit}\n{city}, {state} {zipcode}"
 - General format (appropriate for most addresses)
     - LINE 1: `{Name of addressee}`
     - LINE 2: `{House number}, {Street name}, {Apartment/Suite/Room number if applicable}`
