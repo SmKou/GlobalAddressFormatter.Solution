@@ -32,6 +32,8 @@ United States
 ### Web Client
 Port: http://localhost:5000/
 
+![structure diagram of application](./struct_diagram.png)
+
 - Home(Index): Form
   - Select country -> retrieve address format
   - View format information: address formats
