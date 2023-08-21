@@ -1,8 +1,42 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main>
+    <section>
+        @Html.Label("CountryCode", "Select a Country:")
+        @Html.DropDownList("CountryCode", new { @onchange = "@Get"})
+    </section>
+    <section>
+        @if (formats != null)
+        {
+            <table>
+                <thead>
+                    <tr>
+                        <th>Format</th>
+                        <th>Pattern</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Format format in formats)
+                    {
+                        
+                    }
+                </tbody>
+            </table>
+        }
+    </section>
+</main>
+
+@code {
+    private List<Format> formats;
+
+    private void Get(ChangeEventArgs e)
+    {
+        string code = e.Value.ToString();
+        formats = Format.GetFormats(code);
+         
+    }
+}
