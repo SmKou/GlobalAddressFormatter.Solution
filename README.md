@@ -14,7 +14,20 @@ By: Thomas Bakken, Stella Marie, Allie Zhao
 
 GlobalAddressFormatter is a web app and api for formatting postal addresses for sending mail and packages abroad. Anyone can use the form to format addresses.
 
-### Sample Formats
+### Samples
+
+Australia
+-
+Bangladesh
+-
+Chile
+-
+Greece
+-
+India
+-
+United States
+-
 
 ### Web Client
 Port: http://localhost:5000/
@@ -81,5 +94,8 @@ Tables:
 - Deploy on Azure
 - Add field types
 - Add valid inputs for each field
+
+### Red Features / Won't Have (this time)
+- Global address book
 
 ## Complete Setup
