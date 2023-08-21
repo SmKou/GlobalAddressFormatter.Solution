@@ -72,7 +72,7 @@ Action: Returns list of formats.
 
 **Queries for: .../formats?**
 
-Parameter: country
+Parameter: country (country name || countrycode)
 Required - Returns list of address formats by country
 
 **Sample Response**
