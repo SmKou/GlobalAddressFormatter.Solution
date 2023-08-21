@@ -19,9 +19,14 @@ GlobalAddressFormatter is a web app and api for formatting postal addresses for 
 Format Link: https://en.wikipedia.org/wiki/Address
 
 Australia
--
+- LINE 1: `{recipient name} OR {business name}`
+- LINE 1.5: `{recipient name IF applicable and business name on line 1}`
+- LINE 2: `{street number} {street name} OR {PO Box} OR {Locked Bag number}`
+- LINE 3: `{locality or suburb}, {state}, {post code} (all in capitals)`
+[Source](https://auspost.com.au/sending/check-sending-guidelines/addressing-guidelines)
+
 Bangladesh
--
+- LINE 1: 
 Chile
 -
 Greece
