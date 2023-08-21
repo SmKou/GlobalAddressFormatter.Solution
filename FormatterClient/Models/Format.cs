@@ -5,9 +5,11 @@ namespace FormatterClient.Models;
 
 public class Format
 {
+    [JsonIgnore]
     public int FormatId { get; set; }
-    public string FormatName { get; set; }
-    public string FormatPattern { get; set; }
+    public string Name { get; set; }
+    public string Pattern { get; set; }
+    public string Description { get; set; }
     public List<string> Fields { get; set; }
 
     public static List<Format> GetFormats(string country)

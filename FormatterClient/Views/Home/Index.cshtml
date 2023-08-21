@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "GAF";
     Layout = "_Layout";
 }
 
@@ -22,12 +22,17 @@
                 <tbody>
                     @foreach (Format format in formats)
                     {
-                        
+                        <tr id="@format.Name" @onclick="DisplayForm">
+                            <td>@format.Name</td>
+                            <td>@format.Pattern</td>
+                            <td>@format.Description</td>
+                        </tr>
                     }
                 </tbody>
             </table>
         }
     </section>
+    <section></section>
 </main>
 
 @code {
@@ -37,6 +42,15 @@
     {
         string code = e.Value.ToString();
         formats = Format.GetFormats(code);
-         
+    }
+
+    private void DisplayForm(MouseEventArgs e)
+    {
+        string name = e.Target.Id;
+        List<string> fields = formats.Fields;
+        foreach (string field in fields)
+        {
+            
+        }
     }
 }

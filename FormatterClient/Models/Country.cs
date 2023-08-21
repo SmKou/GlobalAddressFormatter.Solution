@@ -5,6 +5,8 @@ namespace FormatterClient.Models;
 
 public class Country
 {
+    [JsonIgnore]
+    public int CountryId { get; set; }
     public string CountryCode { get; set; }
     public string Name { get; set; }
 
