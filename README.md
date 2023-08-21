@@ -25,6 +25,7 @@ Australia
     - LINE 1.5: `{recipient name IF applicable and business name on line 1}`
     - LINE 2: `{street number} {street name} OR {PO Box} OR {Locked Bag number}`
     - LINE 3: `{locality or suburb}, {state}, {post code} (all in capitals)`
+
 [Source](https://auspost.com.au/sending/check-sending-guidelines/addressing-guidelines)
 
 Bangladesh
@@ -43,6 +44,7 @@ Bangladesh
     - LINE 4: `Thana: {thana name}`
     - LINE 5: `District: {district name}`
     - LINE 6: `{country (international mail only)}`
+
 [Source](https://en.wikipedia.org/wiki/Address#Bangladesh)
 
 Chile
@@ -66,6 +68,7 @@ Chile
     - LINE 2: `{street name}, {additional address information}`
     - LINE 3: `{postal code} {town or village}`
     - LINE 4: `{region}`
+
 [Source](https://en.wikipedia.org/wiki/Address#Chile)
 
 Greece
@@ -77,6 +80,7 @@ Greece
     - LINE 1: `{Recipient}`
     - LINE 2: `{Street address}`
     - LINE 3: `{destination country code} {post code}, {town}`
+
 [Source](https://en.wikipedia.org/wiki/Address#Greece)
 
 India
@@ -107,6 +111,7 @@ India
     - LINE 4: `{Locality or neighborhood}`
     - LINE 5: `{Postal Code}`
     - LINE 6: `{State}`
+
 [Source](https://en.wikipedia.org/wiki/Address#India)
 
 United States
