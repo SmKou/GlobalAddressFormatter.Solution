@@ -92,6 +92,12 @@ Tables:
 - FormatFields: Id, FormatId, FieldId
 - Fields: Id, Name
 
+Minimal Viable Product Database:
+![Enhanced Entity Relationship Diagram](eer_diagram2.png "Green Phase Diagram")
+
+Additional Features Database:
+![Enhanced Entity Relationship Diagram](eer_diagram1.png "Yellow Phase Diagram")
+
 ### Yellow Features / Could Have (if there's time)
 - Deploy on Azure
 - Add field types
