@@ -32,7 +32,7 @@ namespace FormatterApi.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
 
                     b.HasData(
                         new
@@ -84,7 +84,7 @@ namespace FormatterApi.Migrations
 
                     b.HasKey("FieldId");
 
-                    b.ToTable("Fields");
+                    b.ToTable("Fields", (string)null);
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
@@ -106,7 +106,7 @@ namespace FormatterApi.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("Formats");
+                    b.ToTable("Formats", (string)null);
                 });
 
             modelBuilder.Entity("FormatterApi.Models.FormatField", b =>
@@ -127,7 +127,7 @@ namespace FormatterApi.Migrations
 
                     b.HasIndex("FormatId");
 
-                    b.ToTable("FormatFields");
+                    b.ToTable("FormatFields", (string)null);
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>

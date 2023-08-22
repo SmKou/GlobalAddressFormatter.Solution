@@ -23,14 +23,14 @@ public class CountriesController : ControllerBase
         return await _db.Countries.ToListAsync();
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Country>> GetCountryFormat(int id)
+    [HttpGet("{countryCode}")]
+    public async Task<ActionResult<Country>> GetCountryFormat(string countryCode)
     {
         Country country = await _db.Countries
             .Include(m => m.Formats)
             .ThenInclude(m => m.FormatFields)
-            .ThenInclude(m => m.Format)
-            .FirstOrDefaultAsync(m => m.CountryId == id);
+            .ThenInclude(m => m.Field)
+            .FirstOrDefaultAsync(m => m.CountryCode == countryCode);
         if (country == null)
         {
             return NotFound();
