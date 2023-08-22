@@ -2,6 +2,7 @@
 using FormatterApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormatterApi.Migrations
 {
     [DbContext(typeof(FormatterApiContext))]
-    partial class FormatterApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230822201137_AddFormatSeedData")]
+    partial class AddFormatSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,183 +88,6 @@ namespace FormatterApi.Migrations
                     b.HasKey("FieldId");
 
                     b.ToTable("Fields");
-
-                    b.HasData(
-                        new
-                        {
-                            FieldId = 1,
-                            FieldName = "business"
-                        },
-                        new
-                        {
-                            FieldId = 2,
-                            FieldName = "addressee"
-                        },
-                        new
-                        {
-                            FieldId = 3,
-                            FieldName = "street-number"
-                        },
-                        new
-                        {
-                            FieldId = 4,
-                            FieldName = "street-name"
-                        },
-                        new
-                        {
-                            FieldId = 5,
-                            FieldName = "locality"
-                        },
-                        new
-                        {
-                            FieldId = 6,
-                            FieldName = "state"
-                        },
-                        new
-                        {
-                            FieldId = 7,
-                            FieldName = "postal-code"
-                        },
-                        new
-                        {
-                            FieldId = 8,
-                            FieldName = "po-box"
-                        },
-                        new
-                        {
-                            FieldId = 9,
-                            FieldName = "locked-bag-number"
-                        },
-                        new
-                        {
-                            FieldId = 10,
-                            FieldName = "additional-details"
-                        },
-                        new
-                        {
-                            FieldId = 11,
-                            FieldName = "unit"
-                        },
-                        new
-                        {
-                            FieldId = 12,
-                            FieldName = "building"
-                        },
-                        new
-                        {
-                            FieldId = 13,
-                            FieldName = "town"
-                        },
-                        new
-                        {
-                            FieldId = 14,
-                            FieldName = "country"
-                        },
-                        new
-                        {
-                            FieldId = 15,
-                            FieldName = "village"
-                        },
-                        new
-                        {
-                            FieldId = 16,
-                            FieldName = "post-office"
-                        },
-                        new
-                        {
-                            FieldId = 17,
-                            FieldName = "thana-name"
-                        },
-                        new
-                        {
-                            FieldId = 18,
-                            FieldName = "number"
-                        },
-                        new
-                        {
-                            FieldId = 19,
-                            FieldName = "municipality"
-                        },
-                        new
-                        {
-                            FieldId = 20,
-                            FieldName = "region"
-                        },
-                        new
-                        {
-                            FieldId = 21,
-                            FieldName = "neighborhood"
-                        },
-                        new
-                        {
-                            FieldId = 22,
-                            FieldName = "additional-information"
-                        },
-                        new
-                        {
-                            FieldId = 23,
-                            FieldName = "countrycode"
-                        },
-                        new
-                        {
-                            FieldId = 24,
-                            FieldName = "relation"
-                        },
-                        new
-                        {
-                            FieldId = 25,
-                            FieldName = "relation-name"
-                        },
-                        new
-                        {
-                            FieldId = 26,
-                            FieldName = "door-number"
-                        },
-                        new
-                        {
-                            FieldId = 27,
-                            FieldName = "via-name"
-                        },
-                        new
-                        {
-                            FieldId = 28,
-                            FieldName = "post-name"
-                        },
-                        new
-                        {
-                            FieldId = 29,
-                            FieldName = "taluk-name"
-                        },
-                        new
-                        {
-                            FieldId = 30,
-                            FieldName = "city"
-                        },
-                        new
-                        {
-                            FieldId = 31,
-                            FieldName = "district"
-                        },
-                        new
-                        {
-                            FieldId = 32,
-                            FieldName = "state"
-                        },
-                        new
-                        {
-                            FieldId = 33,
-                            FieldName = "occupation"
-                        },
-                        new
-                        {
-                            FieldId = 34,
-                            FieldName = "house-number"
-                        },
-                        new
-                        {
-                            FieldId = 35,
-                            FieldName = "zipcode"
-                        });
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
@@ -298,7 +124,7 @@ namespace FormatterApi.Migrations
                             FormatId = 2,
                             CountryId = 1,
                             FormatName = "Australia (general, to PO Box)",
-                            FormatPattern = "{business}\n{addressee}\n{po-box}\n{locality}, {state}, {postal-code}"
+                            FormatPattern = "{business}\n{addressee}\n{PO Box}\n{locality}, {state}, {postal-code}"
                         },
                         new
                         {
