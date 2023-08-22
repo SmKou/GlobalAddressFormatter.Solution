@@ -24,23 +24,19 @@
 
 <main>
     <section>
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "SelectCountry" }))
+        @using (Html.BeginForm("SelectCountry", "Home", FormMethod.Post, new { id = "SelectCountry" }))
         {
-            <select id="CountryCode" name="CountryCode">
-                @foreach (Country country in ViewBag.CountryCode)
-                {
-                    <option value="@country.CountryCode">@country.CountryName</option>
-                }
-            </select>
+            @Html.DropDownList("CountryCode")
         }
     </section>
-    <section id="SelectFormat">
-    @if (ViewBag.Formats != null)
+    <div>@Model</div>
+    @* <section id="SelectFormat">
+    @if (@Model != null)
     {
         <p>Select a format below:</p>
         <br>
         <br>
-        @foreach (var format in @Model.Formats)
+        @foreach (var format in @Model)
         {
             <div>
                 <p><strong>Format:</strong> @Reformat(@format.Key)</p>
@@ -53,23 +49,34 @@
         }
     }
     </section>
+    <section id="FillFields"></section>
+    <section id="FormattedAddress"></section> *@
 </main>
 
 <script type="text/javascript">
     document
     .getElementById("CountryCode")
-    .addEventListener('change', () => 
-        document
-        .getElementById("SelectCountry")
-        .submit());
+    .addEventListener('change', e => {
+        alert(e.target.value);
+        document.getElementById("SelectCountry").submit();
+    });
+        
 
-    var model = @Html.Raw(JsonSerializer.Serialize(Model));
+    @* const format = {
+        pattern: "",
+        fields: []
+    };
+    var formats = '@ViewBag.Formats';
 
     document
     .getElementById("SelectFormat")
     .addEventListener('click', e => {
-        const code = e.target.id;
-        model["Pattern"] = model["Formats"][code]["Pattern"];
-        model["Fields"] = model["Formats"][code]["Fields"];
-    });
+        if (formats != null)
+        {
+            const code = e.target.id;
+            format.pattern = formats["Pattern"];
+            format.fields = formats["Fields"];
+            alert(code);
+        }
+    }); *@
 </script>
