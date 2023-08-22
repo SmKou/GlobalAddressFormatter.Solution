@@ -26,6 +26,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [Route("/details")]
     public ActionResult Details(Country country)
     {
         AddressFormatter model = new AddressFormatter();

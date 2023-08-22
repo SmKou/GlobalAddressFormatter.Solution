@@ -1,5 +1,4 @@
 @{
-    ViewData["Title"] = "GAF";
     Layout = "_Layout";
 }
 @using System.Text.RegularExpressions;
@@ -21,6 +20,29 @@
         }
         return name;
     }
+
+    public string[] Pattern(string pattern)
+    {
+        string[] lines = pattern.Split("\n");
+        for (int j = 0; j < lines.Length; j++)
+        {
+            string[] tokens = lines[j].Split(new char[] { '{', '}' });
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                if (tokens[i].Contains("-number"))
+                    tokens[i] = (new Random().Next(1, 100)).ToString();
+                else if (tokens[i].Contains("-code"))
+                    tokens[i] = (new Random().Next(100, 10000)).ToString();
+                if (tokens[i].Contains("-"))
+                    tokens[i] = String.Join(" ", tokens[i].Split("-"));
+                
+                if (tokens[i].Length != 0 && tokens[i][0].ToString() != " ")
+                    tokens[i] = tokens[i][0].ToString().ToUpper() + tokens[i].Substring(1);
+            }
+            lines[j] = String.Join(" ", tokens);
+        }
+        return lines;
+    }
 }
 
 <section class="page-title">
@@ -35,8 +57,15 @@
             <div>
                 <p><strong>@Reformat(@format.FormatName)</strong></p>
                 <ul>
-                    <li>@format.Pattern</li>
                     <li>@format.Description</li>
+                    <li><strong>Format layout:</strong><br>
+                        @{string[] lines = @Pattern(@format.Pattern);}
+                        @foreach (string line in lines)
+                        {
+                            <span>@line</span>
+                            <br>
+                        }
+                    </li>
                 </ul>
                 <p><button id="@format.FormatName">Select this Format</button></p>
             </div>
@@ -47,13 +76,24 @@
 
 <script type="text/javascript">
     var model = @Html.Raw(JsonSerializer.Serialize(Model));
-    alert(model["CountryName"]);
 
-    const selectformat = document.getElementById("select_format");
-    selectformat.addEventListener('click', e => {
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => button.addEventListener('click', e => {
         const format_name = e.target.id;
-        alert(model["Formats"]);
-    });
+        select_format.open = false;
+        let format = { };
+        for (let i = 0; i < model["Formats"].length; i++)
+            if (model["Formats"][i]["FormatName"] === format_name)
+            {
+                format = { 
+                    pattern: model["Formats"][i]["Pattern"],
+                    fields: model["Formats"][i]["Fields"]
+                };
+                break;
+            }
+        const formatfields = document.getElementById('format_fields');
+        const formatfields = document.getElementById('format_fields');
+    }));
     
     
     /* selectFormat.addEventListener('click', e => {
