@@ -20,6 +20,9 @@ Format Link: https://en.wikipedia.org/wiki/Address
 Format Link: http://www.columbia.edu/~fdc/postal/
 
 Australia
+"{business}\n{addressee}\n{street-number} {street-name}\n{locality}, {state}, {postal-code}"
+"{business}\n{addressee}\n{PO Box}\n{locality}, {state}, {postal-code}"
+"{business}\n{addressee}\n{locked-bag-number}\n{locality}, {state}, {postal-code}"
 - General format:
     - LINE 1: `{recipient name} OR {business name}`
     - LINE 1.5: `{recipient name IF applicable and business name on line 1}`
@@ -29,6 +32,10 @@ Australia
 [Source](https://auspost.com.au/sending/check-sending-guidelines/addressing-guidelines)
 
 Bangladesh
+"{addressee}\n{additional-details}\n{unit}, {building}\n{street-name} {street-number}\n{town}+{postal-code}\n{country}"
+"{addressee}\n{additional-details}\n{unit}, {building}\n{street-name} {street-number}\n{town}+{postal-code}"
+"{addressee}\n{additional-details}\n{street-name} {street-number}\n{town}+{postal-code}\n{country}"
+"{addressee}\n{additional-details}\n{street-name} {street-number}\n{town}+{postal-code}"
 - Urban format:
     - LINE 1: `{Addressee (person or organization)}`
     - LINE 1.5: `{Addressee details (optional)}`
@@ -36,6 +43,10 @@ Bangladesh
     - LINE 3: `{street name and number}`
     - LINE 4: `{town}+{4-digit postal code}`
     - LINE 5: `{country (for international mail)}`
+"{addressee}\n{additional-details}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}"
+"{addressee}\n{additional-details}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}\n{country}"
+"{addressee}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}"
+"{addressee}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}\n{country}"
 - Rural format:
     - LINE 1: `{Addressee name}`
     - LINE 1.5: `{Addressee details (optional)}`
@@ -48,21 +59,28 @@ Bangladesh
 [Source](https://en.wikipedia.org/wiki/Address#Bangladesh)
 
 Chile
+"{addressee}\n{street-name} {number}, {unit}\n{postal-code} {municipality}\n{region}"
+"{addressee}\n{street-name} {number}\n{postal-code} {municipality}\n{region}"
 - Larger city format (for cities that extend through multiple municipalities):
     - LINE 1: `{Addressee (person or organization)}`
     - LINE 2: `{street name} {number}, {apt. number (if applicable)}`
     - LINE 3: `{postal code (optional)} {municipality}`
     - LINE 4: `{region}`
+"{addressee}\n{street-name} {number}, {unit}\n{neighborhood}\n{region}"
+"{addressee}\n{street-name} {number}\n{neighborhood}\n{region}"
 - Smaller city format (for cities only in one municipality):
     - LINE 1: `{Addressee (person or organization)}`
     - LINE 2: `{street name} {number}, {apt. number (if applicable)}`
     - LINE 3: `{neighborhood}`
     - LINE 4: `{region}`
+"{addressee}\n{street-name} {number}, {unit}\n{postal-code} {town}\n{region}"
+"{addressee}\n{street-name} {number}\n{postal-code} {town}\n{region}"
 - Rural format (for rural municipalities):
     - LINE 1: `{Addressee (person or organization)}`
     - LINE 2: `{street name} {number}, {apt. number (if applicable)}`
     - LINE 3: `{postal code} {town or village}`
     - LINE 4: `{region}`
+"{addressee}\n{street-name}, {additional-information}\n{postal-code} {town}\n{region}"
 - House number-less format (for primarily rural communities that don't use individual building/house numbers):
     - LINE 1: `{Addressee (person or organization)}`
     - LINE 2: `{street name}, {additional address information}`
@@ -72,11 +90,12 @@ Chile
 [Source](https://en.wikipedia.org/wiki/Address#Chile)
 
 Greece
+"{addressee}\n{street-address}\n{postal-code}, {town}"
 - National format (for mail within Greece):
     - LINE 1: `{Recipient}`
     - LINE 2: `{street} {number}`
     - LINE 3: `{post code}, {town}`
-"{addressee}\n{street}\n{country}"
+"{addressee}\n{street-address}\n{countrycode} {postal-code}, {town}"
 - International format (for mail to/from abroad)
     - LINE 1: `{Recipient}`
     - LINE 2: `{Street address}`
