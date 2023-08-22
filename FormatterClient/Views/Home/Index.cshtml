@@ -2,81 +2,30 @@
     ViewData["Title"] = "GAF";
     Layout = "_Layout";
 }
-@using System.Text.RegularExpressions;
-@using System.Text.Json;
 @using FormatterClient.Models;
+@model Country
 
-@functions {
-    public string Reformat(string name)
-    {
-        Regex regex = new Regex(@"[A-Z][a-z]+");
-        Match match = regex.Match(name);
-        if (match.Success)
-        {
-            List<string> matches = new List<string>();
-            foreach (Group g in match.Groups)
-                matches.Add(g.Value);
-            return String.Join(" ", matches);
-        }
-        return name;
+<style>
+    .center form {
+        width: 100%;
     }
-}
 
-<main>
-    <section>
-        @using (Html.BeginForm("SelectCountry", "Home", FormMethod.Post, new { id = "SelectCountry" }))
-        {
-            @Html.DropDownList("CountryCode")
-        }
-    </section>
-    <div>@Model</div>
-    @* <section id="SelectFormat">
-    @if (@Model != null)
-    {
-        <p>Select a format below:</p>
-        <br>
-        <br>
-        @foreach (var format in @Model)
-        {
-            <div>
-                <p><strong>Format:</strong> @Reformat(@format.Key)</p>
-                <ul>
-                    <li><strong>Pattern:</strong> @format.Value.Pattern</li>
-                    <li><strong>Description:</strong> @format.Value.Description</li>
-                </ul>
-                <p><button id="@format.Key">Select this Format</button></p>
-            </div>
-        }
+    .center select {
+        width: 100%;
     }
-    </section>
-    <section id="FillFields"></section>
-    <section id="FormattedAddress"></section> *@
-</main>
+</style>
+
+<section class="center">
+    @using (Html.BeginForm("Details", "Home", FormMethod.Post, new { id = "Country" }))
+    {
+        @Html.DropDownList("CountryCode")
+    }
+</section>
 
 <script type="text/javascript">
     document
     .getElementById("CountryCode")
     .addEventListener('change', e => {
-        alert(e.target.value);
-        document.getElementById("SelectCountry").submit();
+        document.getElementById("Country").submit();
     });
-        
-
-    @* const format = {
-        pattern: "",
-        fields: []
-    };
-    var formats = '@ViewBag.Formats';
-
-    document
-    .getElementById("SelectFormat")
-    .addEventListener('click', e => {
-        if (formats != null)
-        {
-            const code = e.target.id;
-            format.pattern = formats["Pattern"];
-            format.fields = formats["Fields"];
-            alert(code);
-        }
-    }); *@
 </script>

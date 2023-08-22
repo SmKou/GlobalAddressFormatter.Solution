@@ -17,19 +17,22 @@ public class Country
         return countries;
     }
 
-    public static List<Country> Test_Countries()
+    private static List<Country> _countries = new List<Country>
     {
-        List<Country> countries = new List<Country>();
-        countries.Add(new Country
+        new Country
         {
             CountryCode = "BGD",
             CountryName = "Bangladesh"
-        });
-        countries.Add(new Country
+        },
+        new Country
         {
             CountryCode = "AUS",
             CountryName = "Australia"
-        });
-        return countries;
+        }
+    };
+
+    public static List<Country> Test_Countries()
+    {
+        return _countries;
     }
 }

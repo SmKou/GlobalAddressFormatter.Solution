@@ -20,10 +20,9 @@ public class Format
         return formats;
     }
 
-    public static List<Format> Test_Formats(string country)
+    private static Dictionary<string, List<Format>> _formats = new Dictionary<string, List<Format>>
     {
-        Dictionary<string, List<Format>> formats = new Dictionary<string, List<Format>>();
-        formats.Add("AUS", new List<Format>
+        { "AUS", new List<Format>
         {
             new Format
             {
@@ -71,8 +70,8 @@ public class Format
                     "postal-code"
                 }
             }
-        });
-        formats.Add("BGD", new List<Format>
+        }},
+        { "BGD" , new List<Format>
         {
             new Format
             {
@@ -105,7 +104,11 @@ public class Format
                     "thana-name"
                 }
             }
-        });
-        return formats[country];
+        }}
+    };
+
+    public static List<Format> Test_Formats(string country)
+    {
+        return _formats[country];
     }
 }

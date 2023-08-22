@@ -7,23 +7,34 @@ namespace FormatterClient.Controllers;
 public class HomeController : Controller
 {
     [Route("/")]
-    public ActionResult Index(string code)
+    public ActionResult Index()
     {
-        if (!string.IsNullOrEmpty(code))
+        List<Country> countries = Country.Test_Countries();
+        List<SelectListItem> list = new List<SelectListItem>();
+        list.Add(new SelectListItem()
         {
-            ViewBag.CountryCode = new SelectList(Country.Test_Countries(), "CountryCode", "CountryName", code);
-            List<Format> formats = Format.Test_Formats(code);
-            Dictionary<string, Format> model = new Dictionary<string, Format>();
-            foreach (Format format in formats)
-                model.Add(format.FormatName, format);
-            return View(model);
-        }
-        ViewBag.CountryCode = new SelectList(Country.Test_Countries(), "CountryCode", "CountryName");
+            Text = "Select a country",
+            Value = ""
+        });
+        foreach (Country country in countries)
+            list.Add(new SelectListItem()
+            {
+                Text = country.CountryName,
+                Value = country.CountryCode
+            });
+        ViewBag.CountryCode = new SelectList(list, "Value", "Text");
         return View();
     }
 
-    public ActionResult SelectCountry(string code)
+    public ActionResult Details(Country country)
     {
-        return RedirectToAction("Index", new { code = code });
+        AddressFormatter model = new AddressFormatter();
+        model.CountryCode = country.CountryCode;
+        List<Country> countries = Country.Test_Countries();
+        for (int i = 0; i < countries.Count; i++)
+            if (countries[i].CountryCode == country.CountryCode)
+                model.CountryName = countries[i].CountryName;
+        model.Formats = Format.Test_Formats(country.CountryCode);
+        return View(model);
     }
 }

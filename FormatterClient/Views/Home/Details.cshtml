@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "GAF";
+    Layout = "_Layout";
+}
+@using System.Text.RegularExpressions;
+@using System.Text.Json;
+@using FormatterClient.Models
+@model AddressFormatter
+
+@functions {
+    public string Reformat(string name)
+    {
+        Regex regex = new Regex(@"[A-Z][a-z]+");
+        Match match = regex.Match(name);
+        if (match.Success)
+        {
+            List<string> matches = new List<string>();
+            foreach (Group g in match.Groups)
+                matches.Add(g.Value);
+            return String.Join(" ", matches);
+        }
+        return name;
+    }
+}
+
+<section class="page-title">
+    <h3><strong>Country:</strong> @Model.CountryName</h3>
+    @Html.ActionLink("Select a different country", "Index")
+</section>
+<section>
+    <details id="select_format" open>
+        <summary>Select a format</summary>
+        @foreach (Format format in @Model.Formats)
+        {
+            <div>
+                <p><strong>@Reformat(@format.FormatName)</strong></p>
+                <ul>
+                    <li>@format.Pattern</li>
+                    <li>@format.Description</li>
+                </ul>
+                <p><button id="@format.FormatName">Select this Format</button></p>
+            </div>
+        }
+    </details>
+</section>
+<section id="format_fields"></section>
+
+<script type="text/javascript">
+    var model = @Html.Raw(JsonSerializer.Serialize(Model));
+    const selectFormat = document.getElementById("select_format");
+    selectFormat.addEventListener('click', e => {
+        const format_name = e.target.id;
+        alert(format_name);
+        @* const format = {
+            pattern: model["Formats"][format_name]["Pattern"],
+            fields: model["Formats"][format_name]["Fields"]
+        };
+        const formatFields = document.getElementById("format_fields");
+        const form = document.createElement("form");
+        for (let field in format.fields)
+        {
+            const label = document.createElement("label");
+            label.for = $"{field}"
+            label.append(document.createTextNode(field));
+            const input = document.createElement("input");
+            input.type = "text";
+            input.id = field;
+            input.name = field;
+            form.appendChild(label);
+            form.appendChild(input);
+        }
+        const submit = document.createElement("submit");
+        form.appendChild(submit);
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const formData = new FormData(form);
+        }); *@
+    })
+</script>
