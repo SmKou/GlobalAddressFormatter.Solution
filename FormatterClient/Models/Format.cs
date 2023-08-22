@@ -106,6 +106,6 @@ public class Format
                 }
             }
         })
-        return formats;
+        return formats[country];
     }
 }
