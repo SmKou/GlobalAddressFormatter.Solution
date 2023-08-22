@@ -7,4 +7,5 @@ public class Format
     public string FormatPattern { get; set; }
     public int CountryId { get; set; }
     public Country Country { get; set; }
+    public List<FormatField> FormatFields { get; set; }
 }

@@ -2,6 +2,7 @@
 using FormatterApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormatterApi.Migrations
 {
     [DbContext(typeof(FormatterApiContext))]
-    partial class FormatterApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230822180738_AddCountries")]
+    partial class AddCountries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,44 +36,6 @@ namespace FormatterApi.Migrations
                     b.HasKey("CountryId");
 
                     b.ToTable("Countries");
-
-                    b.HasData(
-                        new
-                        {
-                            CountryId = 1,
-                            CountryCode = "AUS",
-                            CountryName = "Australia"
-                        },
-                        new
-                        {
-                            CountryId = 2,
-                            CountryCode = "BDG",
-                            CountryName = "Bangladesh"
-                        },
-                        new
-                        {
-                            CountryId = 3,
-                            CountryCode = "CHL",
-                            CountryName = "Chile"
-                        },
-                        new
-                        {
-                            CountryId = 4,
-                            CountryCode = "GRC",
-                            CountryName = "Greece"
-                        },
-                        new
-                        {
-                            CountryId = 5,
-                            CountryCode = "IND",
-                            CountryName = "India"
-                        },
-                        new
-                        {
-                            CountryId = 6,
-                            CountryCode = "USA",
-                            CountryName = "United States"
-                        });
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Field", b =>
@@ -133,7 +98,7 @@ namespace FormatterApi.Migrations
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
                 {
                     b.HasOne("FormatterApi.Models.Country", "Country")
-                        .WithMany("Formats")
+                        .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -144,13 +109,13 @@ namespace FormatterApi.Migrations
             modelBuilder.Entity("FormatterApi.Models.FormatField", b =>
                 {
                     b.HasOne("FormatterApi.Models.Field", "Field")
-                        .WithMany("FormatFields")
+                        .WithMany()
                         .HasForeignKey("FieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("FormatterApi.Models.Format", "Format")
-                        .WithMany("FormatFields")
+                        .WithMany()
                         .HasForeignKey("FormatId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -158,21 +123,6 @@ namespace FormatterApi.Migrations
                     b.Navigation("Field");
 
                     b.Navigation("Format");
-                });
-
-            modelBuilder.Entity("FormatterApi.Models.Country", b =>
-                {
-                    b.Navigation("Formats");
-                });
-
-            modelBuilder.Entity("FormatterApi.Models.Field", b =>
-                {
-                    b.Navigation("FormatFields");
-                });
-
-            modelBuilder.Entity("FormatterApi.Models.Format", b =>
-                {
-                    b.Navigation("FormatFields");
                 });
 #pragma warning restore 612, 618
         }

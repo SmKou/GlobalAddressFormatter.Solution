@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace FormatterApi.Models;
 
 public class FormatField
