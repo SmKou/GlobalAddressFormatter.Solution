@@ -6,16 +6,22 @@ namespace FormatterClient.Controllers;
 
 public class HomeController : Controller
 {
+    [Route("/")]
     public ActionResult Index()
     {
         List<Country> countries = Country.Test_Countries();
         if (countries != null)
-            ViewBag.CountryCode = new SelectList(countries, "CountryCode", "CountryName");
-        return View();
+            ViewBag.CountryCode = countries;
+        AddressFormatter model = new AddressFormatter();
+        return View(model);
     }
 
-    public ActionResult SetCountry(AddressFormatter model)
+    public ActionResult Index(string code)
     {
+        AddressFormatter model = new AddressFormatter
+        {
+            CountryCode = code
+        };
         List<Format> formats = Format.Test_Formats(model.CountryCode);
         if (formats != null)
         {

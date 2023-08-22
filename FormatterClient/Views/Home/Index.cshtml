@@ -5,7 +5,6 @@
 @using System.Text.RegularExpressions;
 @using System.Text.Json;
 @using FormatterClient.Models;
-@model AddressFormatter
 
 @functions {
     public string Reformat(string name)
@@ -25,43 +24,52 @@
 
 <main>
     <section>
-        <form id="country-form" method="POST" action="/home/setcountry">
-            @Html.DropDownList("CountryCode");
-        </form>
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "SelectCountry" }))
+        {
+            <select id="CountryCode" name="CountryCode">
+                @foreach (Country country in ViewBag.CountryCode)
+                {
+                    <option value="@country.CountryCode">@country.CountryName</option>
+                }
+            </select>
+        }
     </section>
-    @if (@Model.Formats != null)
+    <section id="SelectFormat">
+    @if (ViewBag.Formats != null)
     {
-        <section id="select-format">
-            <p>Select a format below:</p>
-            <br>
-            <br>
-            @foreach (var format in @Model.Formats)
-            {
-                <div>
-                    <p><strong>Format:</strong> @Reformat(@format.Key)</p>
-                    <ul>
-                        <li><strong>Pattern:</strong> @format.Value.Pattern</li>
-                        <li><strong>Description:</strong> @format.Value.Description</li>
-                    </ul>
-                    <p><button id="@format.Key">Select this Format</button></p>
-                </div>
-            }
-        </section>
+        <p>Select a format below:</p>
+        <br>
+        <br>
+        @foreach (var format in @Model.Formats)
+        {
+            <div>
+                <p><strong>Format:</strong> @Reformat(@format.Key)</p>
+                <ul>
+                    <li><strong>Pattern:</strong> @format.Value.Pattern</li>
+                    <li><strong>Description:</strong> @format.Value.Description</li>
+                </ul>
+                <p><button id="@format.Key">Select this Format</button></p>
+            </div>
+        }
     }
+    </section>
 </main>
 
 <script type="text/javascript">
-    const countryForm = document.querySelector('form#country-form');
-    const dropdown = document.querySelector("[name=CountryCode]");
-    dropdown.addEventListener('change', () => countryForm.submit());
+    document
+    .getElementById("CountryCode")
+    .addEventListener('change', () => 
+        document
+        .getElementById("SelectCountry")
+        .submit());
 
     var model = @Html.Raw(JsonSerializer.Serialize(Model));
 
-    const list = document.querySelector('section#select-format');
-    if (list != null)
-        list.addEventListener('click', e => {
-            string code = e.target.id;
-            model["Pattern"] = model["Formats"][code]["Pattern"];
-            model["Fields"] = model["Formats"][code]["Fields"];
-        });
+    document
+    .getElementById("SelectFormat")
+    .addEventListener('click', e => {
+        const code = e.target.id;
+        model["Pattern"] = model["Formats"][code]["Pattern"];
+        model["Fields"] = model["Formats"][code]["Fields"];
+    });
 </script>
