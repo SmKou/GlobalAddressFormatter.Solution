@@ -8,7 +8,7 @@ public class HomeController : Controller
 {
     public ActionResult Index()
     {
-        List<Country> countries = Country.Test_GetCountries();
+        List<Country> countries = Country.Test_Countries();
         if (countries != null)
             ViewBag.CountryCode = new SelectList(countries, "CountryCode", "CountryName");
         return View();
@@ -16,7 +16,7 @@ public class HomeController : Controller
 
     public ActionResult SetCountry(AddressFormatter model)
     {
-        List<Format> formats = Format.Test_GetFormats();
+        List<Format> formats = Format.Test_Formats(model.CountryCode);
         if (formats != null)
         {
             model.Formats = new Dictionary<string, Format>();

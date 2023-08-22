@@ -2,14 +2,24 @@
     ViewData["Title"] = "GAF";
     Layout = "_Layout";
 }
+@using System.Text.RegularExpressions;
+@using System.Text.Json;
 @using FormatterClient.Models;
 @model AddressFormatter
 
 @functions {
     public string Reformat(string name)
     {
-        // regex: parts with Uppercase-\w+
-        // join with spaces and return string
+        Regex regex = new Regex(@"[A-Z][a-z]+");
+        Match match = regex.Match(name);
+        if (match.Success)
+        {
+            List<string> matches = new List<string>();
+            foreach (Group g in match.Groups)
+                matches.Add(g.Value);
+            return String.Join(" ", matches);
+        }
+        return name;
     }
 }
 
@@ -38,34 +48,6 @@
             }
         </section>
     }
-    <section>
-        
-        @* @if (formats != null)
-        {
-            <table>
-                <thead>
-                    <tr>
-                        <th>Format</th>
-                        <th>Pattern</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (Format format in @formats)
-                    {
-                        <tr>
-                            <button id="@format.Name" @onclick="DisplayForm">
-                                <td>@format.Name</td>
-                                <td>@format.Pattern</td>
-                                <td>@format.Description</td>
-                            </button>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        } *@
-    </section>
-    <section></section>
 </main>
 
 <script type="text/javascript">
@@ -80,8 +62,6 @@
         list.addEventListener('click', e => {
             string code = e.target.id;
             model["Pattern"] = model["Formats"][code]["Pattern"];
-            model["Fields"] = 
-        })
-
-    
+            model["Fields"] = model["Formats"][code]["Fields"];
+        });
 </script>

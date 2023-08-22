@@ -11,7 +11,7 @@ public class Format
     public string Description { get; set; }
     public List<string> Fields { get; set; }
 
-    public static List<Format> GetFormats(string country)
+    public static List<Format> Formats(string country)
     {
         var apiCallTask = ApiHelper.GetFormats(country);
         var result = apiCallTask.Result;
@@ -20,7 +20,7 @@ public class Format
         return formats;
     }
 
-    public static Dictionary<string, List<Format>> Test_GetFormats(string country)
+    public static List<Format> Test_Formats(string country)
     {
         Dictionary<string, List<Format>> formats = new Dictionary<string, List<Format>>();
         formats.Add("AUS", new List<Format>
@@ -72,7 +72,7 @@ public class Format
                 }
             }
         });
-        formats.Add("BGD", new Format[]
+        formats.Add("BGD", new List<Format>
         {
             new Format
             {
@@ -105,7 +105,7 @@ public class Format
                     "thana-name"
                 }
             }
-        })
+        });
         return formats[country];
     }
 }

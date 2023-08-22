@@ -8,7 +8,7 @@ public class Country
     public string CountryCode { get; set; }
     public string CountryName { get; set; }
 
-    public static List<Country> GetCountries()
+    public static List<Country> Countries()
     {
         var apiCallTask = ApiHelper.GetCountries();
         var result = apiCallTask.Result;
@@ -17,7 +17,7 @@ public class Country
         return countries;
     }
 
-    public static List<Country> Test_GetCountries()
+    public static List<Country> Test_Countries()
     {
         List<Country> countries = new List<Country>();
         countries.Add(new Country
@@ -29,7 +29,7 @@ public class Country
         {
             CountryCode = "AUS",
             CountryName = "Australia"
-        })
+        });
         return countries;
     }
 }
