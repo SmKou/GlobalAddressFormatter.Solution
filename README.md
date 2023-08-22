@@ -148,6 +148,10 @@ Port: http://localhost:5000/
   - View format information: address formats
   - Add fields to enter destination address -> format an address
 
+<!-- Modification:
+AddressFormatter (class) = Tracking object for view
+-->
+
 ### Client Appearance
 Select a Country: ______________________________ > API request
 
@@ -156,7 +160,7 @@ Method: GET
 URL: http://localhost:6000/formats?country={country}
 Action: Returns list of formats.
 
-<!--Modification: 
+<!-- Modification: 
 1. Table values too long for shorter/smaller screens
 2. Adjust to list req. hiding in collapsible element (details) or removing upon selection
 3. Add button to listings to select format
@@ -194,6 +198,32 @@ FieldName: _____________
 Show formatted address
 
 <!--
+Serialized model:
+{
+    "CountryCode": "",
+    "Formats": [
+        {
+            "FormatName": "",
+            "Pattern": "",
+            "Description": "",
+            "Fields": [
+                "",
+                ...
+            ]
+        },
+        ...
+    ],
+    "Pattern": "",
+    "Fields": {
+        "FieldName": "",
+        ...
+    }
+}
+- CountryCode provided by dropdown and controller method SetCountry
+- Formats provided by API call with CountryCode
+- Pattern set when select format button pressed
+- Fields set when select format button pressed
+
 Formatting the address:
 1. Get form data and set values to keys in Fields (model)
 2. Parse pattern on \n to get lines
