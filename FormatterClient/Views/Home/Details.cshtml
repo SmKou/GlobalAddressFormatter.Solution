@@ -47,11 +47,19 @@
 
 <script type="text/javascript">
     var model = @Html.Raw(JsonSerializer.Serialize(Model));
-    const selectFormat = document.getElementById("select_format");
-    selectFormat.addEventListener('click', e => {
+    alert(model["CountryName"]);
+
+    const selectformat = document.getElementById("select_format");
+    selectformat.addEventListener('click', e => {
         const format_name = e.target.id;
-        alert(format_name);
-        @* const format = {
+        alert(model["Formats"]);
+    });
+    
+    
+    /* selectFormat.addEventListener('click', e => {
+        selectFormat.open = false;
+        const format_name = e.target.id;
+        const format = {
             pattern: model["Formats"][format_name]["Pattern"],
             fields: model["Formats"][format_name]["Fields"]
         };
@@ -71,9 +79,5 @@
         }
         const submit = document.createElement("submit");
         form.appendChild(submit);
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            const formData = new FormData(form);
-        }); *@
-    })
+    }) */
 </script>
