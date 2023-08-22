@@ -5,8 +5,6 @@ namespace FormatterClient.Models;
 
 public class Country
 {
-    [JsonIgnore]
-    public int CountryId { get; set; }
     public string CountryCode { get; set; }
     public string CountryName { get; set; }
 
@@ -24,10 +22,14 @@ public class Country
         List<Country> countries = new List<Country>();
         countries.Add(new Country
         {
-            CountryId = 1,
             CountryCode = "BGD",
             CountryName = "Bangladesh"
         });
+        countries.Add(new Country
+        {
+            CountryCode = "AUS",
+            CountryName = "Australia"
+        })
         return countries;
     }
 }

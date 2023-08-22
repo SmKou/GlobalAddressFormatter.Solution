@@ -9,20 +9,20 @@ public class HomeController : Controller
     public ActionResult Index()
     {
         List<Country> countries = Country.Test_GetCountries();
-        ViewBag.CountryCode = new SelectList(countries, "CountryCode", "Name");
+        if (countries != null)
+            ViewBag.CountryCode = new SelectList(countries, "CountryCode", "CountryName");
         return View();
     }
 
-    public ActionResult Index(string code)
+    public ActionResult SetCountry(AddressFormatter model)
     {
-
-    }
-
-    private class AddressFormat
-    {
-        public string CountryCode { get; set; }
-        public Dictionary<string, Format> Formats { get; set; }
-        public string Pattern { get; set; }
-        public Dictionary<string, string> Fields { get; set; }
+        List<Format> formats = Format.Test_GetFormats();
+        if (formats != null)
+        {
+            model.Formats = new Dictionary<string, Format>();
+            foreach (Format format in formats)
+                model.Formats.Add(format.FormatName, format);
+        }
+        return View(model);
     }
 }

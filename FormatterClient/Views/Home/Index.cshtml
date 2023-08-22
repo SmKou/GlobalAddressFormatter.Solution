@@ -2,16 +2,44 @@
     ViewData["Title"] = "GAF";
     Layout = "_Layout";
 }
+@using FormatterClient.Models;
+@model AddressFormatter
+
+@functions {
+    public string Reformat(string name)
+    {
+        // regex: parts with Uppercase-\w+
+        // join with spaces and return string
+    }
+}
 
 <main>
     <section>
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-        {
-            @Html.Label("CountryCode", "Select a Country:")
-            @Html.DropDownList("CountryCode", "CountryCode", new { @onchange = "this.form.submit()"})
-        }
+        <form id="country-form" method="POST" action="/home/setcountry">
+            @Html.DropDownList("CountryCode");
+        </form>
     </section>
+    @if (@Model.Formats != null)
+    {
+        <section id="select-format">
+            <p>Select a format below:</p>
+            <br>
+            <br>
+            @foreach (var format in @Model.Formats)
+            {
+                <div>
+                    <p><strong>Format:</strong> @Reformat(@format.Key)</p>
+                    <ul>
+                        <li><strong>Pattern:</strong> @format.Value.Pattern</li>
+                        <li><strong>Description:</strong> @format.Value.Description</li>
+                    </ul>
+                    <p><button id="@format.Key">Select this Format</button></p>
+                </div>
+            }
+        </section>
+    }
     <section>
+        
         @* @if (formats != null)
         {
             <table>
@@ -40,14 +68,20 @@
     <section></section>
 </main>
 
-@* @code {
-    private Country country;
-    public List<Format> formats;
+<script type="text/javascript">
+    const countryForm = document.querySelector('form#country-form');
+    const dropdown = document.querySelector("[name=CountryCode]");
+    dropdown.addEventListener('change', () => countryForm.submit());
 
-    private void Get(ChangeEventArgs e)
-    {
-        string code = e.Value.ToString();
-        country = ViewBag.Countries.SingleOrDefault(entry => entry.CountryCode == code);
-        formats = Format.GetFormats(country);
-    }
-} *@
+    var model = @Html.Raw(JsonSerializer.Serialize(Model));
+
+    const list = document.querySelector('section#select-format');
+    if (list != null)
+        list.addEventListener('click', e => {
+            string code = e.target.id;
+            model["Pattern"] = model["Formats"][code]["Pattern"];
+            model["Fields"] = 
+        })
+
+    
+</script>
