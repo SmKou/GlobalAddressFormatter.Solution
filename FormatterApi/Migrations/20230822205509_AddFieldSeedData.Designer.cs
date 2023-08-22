@@ -2,6 +2,7 @@
 using FormatterApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormatterApi.Migrations
 {
     [DbContext(typeof(FormatterApiContext))]
-    partial class FormatterApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230822205509_AddFieldSeedData")]
+    partial class AddFieldSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +35,7 @@ namespace FormatterApi.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new
@@ -84,9 +87,6 @@ namespace FormatterApi.Migrations
 
                     b.HasKey("FieldId");
 
-<<<<<<< HEAD
-                    b.ToTable("Fields", (string)null);
-=======
                     b.ToTable("Fields");
 
                     b.HasData(
@@ -265,7 +265,6 @@ namespace FormatterApi.Migrations
                             FieldId = 35,
                             FieldName = "zipcode"
                         });
->>>>>>> 227882a14f2a297b343043882e479873f132daf6
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
@@ -436,7 +435,7 @@ namespace FormatterApi.Migrations
 
                     b.HasIndex("FormatId");
 
-                    b.ToTable("FormatFields", (string)null);
+                    b.ToTable("FormatFields");
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
