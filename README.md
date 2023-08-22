@@ -33,9 +33,6 @@ Australia
 
 Bangladesh
 "{addressee}\n{additional-details}\n{unit}, {building}\n{street-name} {street-number}\n{town}+{postal-code}\n{country}"
-"{addressee}\n{additional-details}\n{unit}, {building}\n{street-name} {street-number}\n{town}+{postal-code}"
-"{addressee}\n{additional-details}\n{street-name} {street-number}\n{town}+{postal-code}\n{country}"
-"{addressee}\n{additional-details}\n{street-name} {street-number}\n{town}+{postal-code}"
 - Urban format:
     - LINE 1: `{Addressee (person or organization)}`
     - LINE 1.5: `{Addressee details (optional)}`
@@ -43,10 +40,7 @@ Bangladesh
     - LINE 3: `{street name and number}`
     - LINE 4: `{town}+{4-digit postal code}`
     - LINE 5: `{country (for international mail)}`
-"{addressee}\n{additional-details}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}"
 "{addressee}\n{additional-details}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}\n{country}"
-"{addressee}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}"
-"{addressee}\nVillage: {village}\nP.O.:{post-office}\nThana: {thana-name}\n{country}"
 - Rural format:
     - LINE 1: `{Addressee name}`
     - LINE 1.5: `{Addressee details (optional)}`
@@ -154,8 +148,21 @@ Port: http://localhost:5000/
   - View format information: address formats
   - Add fields to enter destination address -> format an address
 
-Appearance:
+### Client Appearance
 Select a Country: ______________________________ > API request
+
+**Sample Request**
+Method: GET
+URL: http://localhost:6000/formats?country={country}
+Action: Returns list of formats.
+
+<!--Modification: 
+1. Table values too long for shorter/smaller screens
+2. Adjust to list req. hiding in collapsible element (details) or removing upon selection
+3. Add button to listings to select format
+4. ASP.NET Core event handlers cannot create elements and append to page (server-side)
+
+Mod 2: Prefer collapsible element so user can change their mind and select another format (when they press a select format button, close the details with js)
 
 * Once api call returns list
 | FormatName        | Format (Pattern)          | Description               |
@@ -168,11 +175,32 @@ Select a Format: ________________________________ >
 * Once a format is selected => render input fields
 FieldName: __________
 FieldName: __________
+-->
 
-**Sample Request**
-Method: GET
-URL: http://localhost:6000/formats?country={country}
-Action: Returns list of formats.
+* Once api call returns list
+Select a format from below:
+
+**Format:** ReformattedName(format_name)
+- **Pattern:** {format_pattern}
+- **Description:** {description}
+Button (id=format_name): Select this Format
+
+* Once format selected
+Form:
+FieldName: _____________
+FieldName: _____________
+
+* Submit form with fields
+Show formatted address
+
+<!--
+Formatting the address:
+1. Get form data and set values to keys in Fields (model)
+2. Parse pattern on \n to get lines
+3. Parse each line on {} giving field_names and string pieces
+4. Construct address: field_names => Fields["{field_name}"] + string pieces...
+5. Display address
+-->
 
 ### Web Api
 - ApiController: Countries ```.../countries```
