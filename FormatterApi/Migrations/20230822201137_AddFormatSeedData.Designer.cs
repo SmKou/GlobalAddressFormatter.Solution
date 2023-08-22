@@ -2,6 +2,7 @@
 using FormatterApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FormatterApi.Migrations
 {
     [DbContext(typeof(FormatterApiContext))]
-    partial class FormatterApiContextModelSnapshot : ModelSnapshot
+    [Migration("20230822201137_AddFormatSeedData")]
+    partial class AddFormatSeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +35,7 @@ namespace FormatterApi.Migrations
 
                     b.HasKey("CountryId");
 
-                    b.ToTable("Countries", (string)null);
+                    b.ToTable("Countries");
 
                     b.HasData(
                         new
@@ -84,7 +87,7 @@ namespace FormatterApi.Migrations
 
                     b.HasKey("FieldId");
 
-                    b.ToTable("Fields", (string)null);
+                    b.ToTable("Fields");
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
@@ -255,7 +258,7 @@ namespace FormatterApi.Migrations
 
                     b.HasIndex("FormatId");
 
-                    b.ToTable("FormatFields", (string)null);
+                    b.ToTable("FormatFields");
                 });
 
             modelBuilder.Entity("FormatterApi.Models.Format", b =>
