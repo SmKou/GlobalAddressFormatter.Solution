@@ -1,15 +1,46 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "GAF";
     Layout = "_Layout";
+}
+@using FormatterClient.Models;
+@model AddressFormatter
+
+@functions {
+    public string Reformat(string name)
+    {
+        // regex: parts with Uppercase-\w+
+        // join with spaces and return string
+    }
 }
 
 <main>
     <section>
-        @Html.Label("CountryCode", "Select a Country:")
-        @Html.DropDownList("CountryCode", new { @onchange = "@Get"})
+        <form id="country-form" method="POST" action="/home/setcountry">
+            @Html.DropDownList("CountryCode");
+        </form>
     </section>
+    @if (@Model.Formats != null)
+    {
+        <section id="select-format">
+            <p>Select a format below:</p>
+            <br>
+            <br>
+            @foreach (var format in @Model.Formats)
+            {
+                <div>
+                    <p><strong>Format:</strong> @Reformat(@format.Key)</p>
+                    <ul>
+                        <li><strong>Pattern:</strong> @format.Value.Pattern</li>
+                        <li><strong>Description:</strong> @format.Value.Description</li>
+                    </ul>
+                    <p><button id="@format.Key">Select this Format</button></p>
+                </div>
+            }
+        </section>
+    }
     <section>
-        @if (formats != null)
+        
+        @* @if (formats != null)
         {
             <table>
                 <thead>
@@ -20,23 +51,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Format format in formats)
+                    @foreach (Format format in @formats)
                     {
-                        
+                        <tr>
+                            <button id="@format.Name" @onclick="DisplayForm">
+                                <td>@format.Name</td>
+                                <td>@format.Pattern</td>
+                                <td>@format.Description</td>
+                            </button>
+                        </tr>
                     }
                 </tbody>
             </table>
-        }
+        } *@
     </section>
+    <section></section>
 </main>
 
-@code {
-    private List<Format> formats;
+<script type="text/javascript">
+    const countryForm = document.querySelector('form#country-form');
+    const dropdown = document.querySelector("[name=CountryCode]");
+    dropdown.addEventListener('change', () => countryForm.submit());
 
-    private void Get(ChangeEventArgs e)
-    {
-        string code = e.Value.ToString();
-        formats = Format.GetFormats(code);
-         
-    }
-}
+    var model = @Html.Raw(JsonSerializer.Serialize(Model));
+
+    const list = document.querySelector('section#select-format');
+    if (list != null)
+        list.addEventListener('click', e => {
+            string code = e.target.id;
+            model["Pattern"] = model["Formats"][code]["Pattern"];
+            model["Fields"] = 
+        })
+
+    
+</script>
