@@ -33,6 +33,10 @@
                     tokens[i] = (new Random().Next(1, 100)).ToString();
                 else if (tokens[i].Contains("-code"))
                     tokens[i] = (new Random().Next(100, 10000)).ToString();
+
+                if (tokens[i].Contains(":") && tokens[i][0].ToString() == ":")
+                    tokens[i] = tokens[i].Substring(1);
+
                 if (tokens[i].Contains("-"))
                     tokens[i] = String.Join(" ", tokens[i].Split("-"));
 
@@ -100,22 +104,37 @@
     const buttons = document.querySelectorAll('button');
     const format_fields = document.getElementById('format_fields');
     const formatted_address = document.getElementById('formatted_address');
+    let fields_details = "";
+    let form_data = {};
 
     buttons.forEach(button => button.addEventListener('click', e => {
         const format_name = e.target.id;
-        alert(format_name);
         const formats = model["Formats"];
         select_format.open = false;
         for (let i = 0; i < formats.length; i++)
             if (formats[i]["FormatName"] === format_name)
             {
-                address_format.pattern = formats["Pattern"];
-                address_format.fields = formats["Fields"];
+                address_format.pattern = formats[i]["Pattern"];
+                address_format.fields = formats[i]["Fields"];
                 break;
             }
-        
-        format_fields.innerHtml = "";
-        const fields_details = document.createElement('details');
+        clear(format_fields);
+        clear(formatted_address);
+        addForm();
+    }));
+
+    function clear(parent) {
+        let child = parent.lastElementChild;
+        while (child) {
+            parent.removeChild(child);
+            child = parent.lastElementChild;
+        }
+    }
+
+    function addForm()
+    {
+        fields_details = document.createElement('details');
+        fields_details.id = "fields-details";
         fields_details.open = true;
         const summary = document.createElement('summary');
         summary.appendChild(document.createTextNode("Fill in address fields"));
@@ -126,9 +145,16 @@
             const label = document.createElement('label');
             label.for = field;
             label.appendChild(document.createTextNode(reformat(field)));
+
+            const index = address_format.pattern.indexOf(field);
+            const optional = address_format.pattern[index - 1] == ":";
+
             const input = document.createElement('input');
             input.id = field;
             input.name = field;
+            if (!optional)
+                input.required = true;
+
             fields_form.appendChild(label);
             fields_form.appendChild(input);
         });
@@ -138,31 +164,31 @@
         fields_form.appendChild(submit_btn);
         fields_form.addEventListener('submit', e => {
             e.preventDefault();
-            alert(e.target.tagName);
+            display(e.target);
         })
         fields_details.appendChild(fields_form);
         format_fields.appendChild(fields_details);
-    }));
+    }
 
     function reformat(field) {
         field = field.replace("-", " ");
         return field[0].toUpperCase() + field.substring(1);
     }
 
-    function format(data) {
+    function format() {
         const lines = address_format.pattern.split("\n");
         for (let i = 0; i < lines.length; i++)
         {
             const tokens = lines[i].split(/[{}]/);
-            const regex = new RegExp('/\w+/');
             for (let j = 0; j < tokens.length; j++)
-                if (regex.test(tokens[j]))
-                    tokens[j] = data.has(tokens[j]) ? data.get(tokens[j]) : "";
+                if (form_data[tokens[j]] != null)
+                    tokens[j] = form_data[tokens[j]];
+                else if (tokens[j].includes(":") && tokens[j][0] == ":")
+                    tokens[j] = "";
             lines[i] = tokens.join(" ");
         }
-        const regex = new RegExp('/[ ]+/');
         for (let i = lines.length - 1; i >= 1; i--)
-            if (regex.test(lines[i]))
+            if (lines[i].trim() == "" || /^[,\,]+$/.test(lines[i].trim()))
                 lines.splice(i, 1);
         for (let line of lines)
             line.replace(" ,", ",");
@@ -170,16 +196,36 @@
     }
 
     function display(form) {
-        FormData data = new FormData(form);
-        const address = format(data);
-        if (address.length == 0)
+        const inputs = document.querySelectorAll('form input');
+        form_data = {};
+        for (var input of inputs) 
+            if (input.type != "submit")
+                form_data[input.id] = input.value;
+        let empty = true;
+        for (const k in Object.keys(form_data))
+            if (form_data[k] != "")
+                empty = false;
+        if (empty) {
+            formatted_address.innerHTML = "You provided no inputs.";
             return false;
+        }
 
-        formatted_address.innerHTML = "";
-        const paragraph = document.createElement('p');
+        fields_details.open = false;
+        const address = format();
+        clear(formatted_address);
+
+        let paragraph = document.createElement('p');
         const strong = document.createElement('strong');
         strong.appendChild(document.createTextNode("Formatted Address:"));
         paragraph.appendChild(strong);
+        formatted_address.appendChild(paragraph);
+        paragraph = document.createElement('p');
+        for (let i = 0; i < address.length; i++)
+        {
+            paragraph.appendChild(document.createTextNode(address[i]));
+            if (i != address.length - 1)
+                paragraph.appendChild(document.createElement('br'))
+        }
         formatted_address.appendChild(paragraph);
     }
 </script>
