@@ -103,6 +103,7 @@
 
     buttons.forEach(button => button.addEventListener('click', e => {
         const format_name = e.target.id;
+        alert(format_name);
         const formats = model["Formats"];
         select_format.open = false;
         for (let i = 0; i < formats.length; i++)
@@ -171,15 +172,7 @@
     function display(form) {
         FormData data = new FormData(form);
         const address = format(data);
-
-        let empty = true;
-        for (let i = 0; i < address.length; i++)
-            if (address[i] != "" || !/[ ]+/.test(address[i]))
-            {
-                empty = false;
-                break;
-            }
-        if (empty)
+        if (address.length == 0)
             return false;
 
         formatted_address.innerHTML = "";
@@ -188,13 +181,5 @@
         strong.appendChild(document.createTextNode("Formatted Address:"));
         paragraph.appendChild(strong);
         formatted_address.appendChild(paragraph);
-
-        paragraph = document.createElement('p');
-        for (let i = 0; i < address.length; i++)
-        {
-            paragraph.appendChild(document.createTextNode(address[i]));
-            if (i != address.length - 1)
-                paragraph.appendChild(document.createElement('br'));
-        }
     }
 </script>
