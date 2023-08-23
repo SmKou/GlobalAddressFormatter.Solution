@@ -138,6 +138,10 @@ United States:
     - LINE 2: `{House number}, {Street name}, {Apartment/Suite/Room number if applicable}`
     - LINE 3: `{Name of post office} {State abbreviation} {ZIP or ZIP+4 code}`
 
+<!--
+Add : in front of field names in pattern that are optional
+-->
+
 ### Web Client
 Port: http://localhost:5000/
 
