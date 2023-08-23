@@ -35,15 +35,30 @@
                     tokens[i] = (new Random().Next(100, 10000)).ToString();
                 if (tokens[i].Contains("-"))
                     tokens[i] = String.Join(" ", tokens[i].Split("-"));
-                
+
                 if (tokens[i].Length != 0 && tokens[i][0].ToString() != " ")
                     tokens[i] = tokens[i][0].ToString().ToUpper() + tokens[i].Substring(1);
             }
-            lines[j] = String.Join(" ", tokens);
+            string line = String.Join(" ", tokens);
+            lines[j] = line.Replace(" ,", ",");
         }
         return lines;
     }
 }
+
+<style>
+    form {
+        width: 100%;
+        margin-top: 1.2rem;
+        display: grid;
+        grid-template-columns: 12rem 1fr;
+        gap: 1rem;
+    }
+
+    form input[type=submit] {
+        grid-column: span 2;
+    }
+</style>
 
 <section class="page-title">
     <h3><strong>Country:</strong> @Model.CountryName</h3>
@@ -73,51 +88,113 @@
     </details>
 </section>
 <section id="format_fields"></section>
+<section id="formatted_address"></section>
 
 <script type="text/javascript">
     var model = @Html.Raw(JsonSerializer.Serialize(Model));
-
+    const address_format = {
+        pattern: "",
+        fields: []
+    };
+    const select_format = document.getElementById('select_format');
     const buttons = document.querySelectorAll('button');
+    const format_fields = document.getElementById('format_fields');
+    const formatted_address = document.getElementById('formatted_address');
+
     buttons.forEach(button => button.addEventListener('click', e => {
         const format_name = e.target.id;
+        const formats = model["Formats"];
         select_format.open = false;
-        let format = { };
-        for (let i = 0; i < model["Formats"].length; i++)
-            if (model["Formats"][i]["FormatName"] === format_name)
+        for (let i = 0; i < formats.length; i++)
+            if (formats[i]["FormatName"] === format_name)
             {
-                format = { 
-                    pattern: model["Formats"][i]["Pattern"],
-                    fields: model["Formats"][i]["Fields"]
-                };
+                address_format.pattern = formats["Pattern"];
+                address_format.fields = formats["Fields"];
                 break;
             }
-        const formatfields = document.getElementById('format_fields');
-        const formatfields = document.getElementById('format_fields');
-    }));
-    
-    
-    /* selectFormat.addEventListener('click', e => {
-        selectFormat.open = false;
-        const format_name = e.target.id;
-        const format = {
-            pattern: model["Formats"][format_name]["Pattern"],
-            fields: model["Formats"][format_name]["Fields"]
-        };
-        const formatFields = document.getElementById("format_fields");
-        const form = document.createElement("form");
-        for (let field in format.fields)
-        {
-            const label = document.createElement("label");
-            label.for = $"{field}"
-            label.append(document.createTextNode(field));
-            const input = document.createElement("input");
-            input.type = "text";
+        
+        format_fields.innerHtml = "";
+        const fields_details = document.createElement('details');
+        fields_details.open = true;
+        const summary = document.createElement('summary');
+        summary.appendChild(document.createTextNode("Fill in address fields"));
+        fields_details.appendChild(summary);
+        const fields_form = document.createElement('form');
+        fields_form.id = "fields_form";
+        address_format.fields.forEach(field => {
+            const label = document.createElement('label');
+            label.for = field;
+            label.appendChild(document.createTextNode(reformat(field)));
+            const input = document.createElement('input');
             input.id = field;
             input.name = field;
-            form.appendChild(label);
-            form.appendChild(input);
+            fields_form.appendChild(label);
+            fields_form.appendChild(input);
+        });
+        const submit_btn = document.createElement('input');
+        submit_btn.type = "submit";
+        submit_btn.value = "Format Address";
+        fields_form.appendChild(submit_btn);
+        fields_form.addEventListener('submit', e => {
+            e.preventDefault();
+            alert(e.target.tagName);
+        })
+        fields_details.appendChild(fields_form);
+        format_fields.appendChild(fields_details);
+    }));
+
+    function reformat(field) {
+        field = field.replace("-", " ");
+        return field[0].toUpperCase() + field.substring(1);
+    }
+
+    function format(data) {
+        const lines = address_format.pattern.split("\n");
+        for (let i = 0; i < lines.length; i++)
+        {
+            const tokens = lines[i].split(/[{}]/);
+            const regex = new RegExp('/\w+/');
+            for (let j = 0; j < tokens.length; j++)
+                if (regex.test(tokens[j]))
+                    tokens[j] = data.has(tokens[j]) ? data.get(tokens[j]) : "";
+            lines[i] = tokens.join(" ");
         }
-        const submit = document.createElement("submit");
-        form.appendChild(submit);
-    }) */
+        const regex = new RegExp('/[ ]+/');
+        for (let i = lines.length - 1; i >= 1; i--)
+            if (regex.test(lines[i]))
+                lines.splice(i, 1);
+        for (let line of lines)
+            line.replace(" ,", ",");
+        return lines;
+    }
+
+    function display(form) {
+        FormData data = new FormData(form);
+        const address = format(data);
+
+        let empty = true;
+        for (let i = 0; i < address.length; i++)
+            if (address[i] != "" || !/[ ]+/.test(address[i]))
+            {
+                empty = false;
+                break;
+            }
+        if (empty)
+            return false;
+
+        formatted_address.innerHTML = "";
+        const paragraph = document.createElement('p');
+        const strong = document.createElement('strong');
+        strong.appendChild(document.createTextNode("Formatted Address:"));
+        paragraph.appendChild(strong);
+        formatted_address.appendChild(paragraph);
+
+        paragraph = document.createElement('p');
+        for (let i = 0; i < address.length; i++)
+        {
+            paragraph.appendChild(document.createTextNode(address[i]));
+            if (i != address.length - 1)
+                paragraph.appendChild(document.createElement('br'));
+        }
+    }
 </script>

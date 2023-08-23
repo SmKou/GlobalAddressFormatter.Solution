@@ -29,6 +29,8 @@ public class HomeController : Controller
     [Route("/details")]
     public ActionResult Details(Country country)
     {
+        if (country == null || country.CountryCode == "")
+            return RedirectToAction("Index");
         AddressFormatter model = new AddressFormatter();
         model.CountryCode = country.CountryCode;
         List<Country> countries = Country.Test_Countries();
