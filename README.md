@@ -297,3 +297,78 @@ Additional Features Database:
 - Global address book
 
 ## Complete Setup
+
+This app requires use of a database. It is suggested to use migrations for ensuring the smooth setup of the sample data for running the project.
+
+### Database Schemas
+
+To setup the database, follow the directions in [Connecting the Database](#connecting-the-database) and then implement migrations as detailed in [Migrations](#migrations).
+
+### Connecting the Database
+
+In your IDE:
+- Create a file in the root of the assembly: appsettings.json
+  - Do not remove the mention of this file from .gitignore
+- Add this code:
+
+```json
+{
+    "ConnectionStrings": {
+        "DefaultConnection": "Server=[hostname];Port=[port_number];database=[database_name];uid=[username];pwd=[password]"
+    }
+}
+```
+
+Replace the values accordingly and brackets are not to be included.
+
+### Migrations
+
+- In the terminal, run ```dotnet build --project AssemblyName```
+  - Or navigate into the assembly subdirectory of the project and run ```dotnet build```
+
+This command will install the necessary dependencies. For it to work though, appsettings.json should already be setup. As migrations are included in the clone or fork, you should only need to run:
+
+```dotnet ef database update```
+
+However, since the models are already set up, if update does not work, then do:
+
+```bash
+dotnet ef migrations add Initial
+dotnet ef database update
+```
+
+### Run the App
+
+Required:
+- Database created with migrations
+- Connection string in appsettings.json
+
+- Navigate to main page of repo
+- Either fork or clone project to local directory
+- Bash or Terminal: ```dotnet run --project AssemblyName```
+  - If you navigate into the main assembly, use ```dotnet run```
+
+This project consists of both a client app and an api. First run the api, which will run on port 6000, then run the client, which will run on port 5000.
+
+```bash
+dotnet run --project FormatterApi
+```
+
+```bash
+dotnet run --project FormatterClient
+```
+
+If the app does not launch in the browser:
+- Run the app
+- Open a browser
+- Enter the url: http://localhost:5000/
+
+## Known Bugs
+
+Please report any issues in using the app.
+
+- Swagger documentation
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/) T. Bakken, S. Marie, A. Zhao
