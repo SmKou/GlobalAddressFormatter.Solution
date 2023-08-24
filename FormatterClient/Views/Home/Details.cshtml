@@ -119,8 +119,6 @@
                 address_format.fields = formats[i]["FormatFields"];
                 break;
             }
-        console.log("###################################")
-        console.log(address_format.fields[0])
         clear(format_fields);
         clear(formatted_address);
         addForm();
@@ -175,8 +173,6 @@
     }
 
     function reformat(field) {
-        console.log("This should work: ")
-        console.log(field)
         field = field.replace("-", " ");
         return field[0].toUpperCase() + field.substring(1);
     }

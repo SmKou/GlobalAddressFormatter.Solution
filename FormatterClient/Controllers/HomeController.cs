@@ -38,8 +38,6 @@ public class HomeController : Controller
             if (countries[i].CountryCode == country.CountryCode)
                 model.CountryName = countries[i].CountryName;
         model.Formats = Format.Formats(country.CountryCode);
-        Console.WriteLine("###################################");
-        Console.WriteLine(model.Formats[0].FormatFields[0].Field.FieldName);
         return View(model);
     }
 }
