@@ -76,9 +76,9 @@
             <div>
                 <p><strong>@Reformat(@format.FormatName)</strong></p>
                 <ul>
-                    <li>@format.Description</li>
+                    @*<li>@format.Description</li>*@
                     <li><strong>Format layout:</strong><br>
-                        @{string[] lines = @Pattern(@format.Pattern);}
+                        @{string[] lines = @Pattern(@format.FormatPattern);}
                         @foreach (string line in lines)
                         {
                             <span>@line</span>
@@ -114,10 +114,13 @@
         for (let i = 0; i < formats.length; i++)
             if (formats[i]["FormatName"] === format_name)
             {
-                address_format.pattern = formats[i]["Pattern"];
-                address_format.fields = formats[i]["Fields"];
+                address_format.pattern = formats[i]["FormatPattern"];
+                console.log(formats[i])
+                address_format.fields = formats[i]["FormatFields"];
                 break;
             }
+        console.log("###################################")
+        console.log(address_format.fields[0])
         clear(format_fields);
         clear(formatted_address);
         addForm();
@@ -141,7 +144,8 @@
         fields_details.appendChild(summary);
         const fields_form = document.createElement('form');
         fields_form.id = "fields_form";
-        address_format.fields.forEach(field => {
+        address_format.fields.forEach(formatField => {
+            const field = formatField.Field.FieldName;
             const label = document.createElement('label');
             label.for = field;
             label.appendChild(document.createTextNode(reformat(field)));
@@ -171,6 +175,8 @@
     }
 
     function reformat(field) {
+        console.log("This should work: ")
+        console.log(field)
         field = field.replace("-", " ");
         return field[0].toUpperCase() + field.substring(1);
     }
